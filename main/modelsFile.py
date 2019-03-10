@@ -5,7 +5,7 @@ from flask_security import UserMixin, RoleMixin
 
 from datetime import datetime
 
-import re
+from re import sub  # The function is responsible for changing the bad characters to some one
 
 role_user_link = db.Table('role_user',
                           db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
@@ -50,7 +50,7 @@ def slugify(string):
     pattern = r'[^\w+]'
 
     # Return a string by pattern, replacing unwanted characters on the dash
-    return re.sub(pattern, '-', str(string))
+    return sub(pattern, '-', str(string))
 
 
 class Product(db.Model):
