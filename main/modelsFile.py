@@ -57,7 +57,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     img_title = db.Column(db.String(255))
     headline = db.Column(db.String(255))
-    description = db.Column(db.String(50))
+    description = db.Column(db.String(45))
     text = db.Column(db.Text)
     cost = db.Column(db.Integer)
     slug = db.Column(db.String(255), unique=True)  # Human-readable URL
