@@ -17,25 +17,4 @@ class ConfigClass(object):
     SECURITY_PASSWORD_SALT = 'I prefer pepper'
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
 
-    app.config['databaseConfig'] = {'host': '127.0.0.1',
-                                    'user': 'root',
-                                    'password': 'microlabm666',
-                                    'database': 'onlinestoredb'}
-
-
-class UsingDataBase:  # All necessary database settings are stored in this class.
-    def __init__(self, config: dict) -> None:  # Before performance
-        self.configuration = config
-
-    def __enter__(self):  # Run at startup
-        self.connectionLink = mysql.connector.connect(**self.configuration)
-        self.databaseCursor = self.connectionLink.cursor()
-
-        return self.databaseCursor
-
-    def __exit__(self) -> None:  # After performance
-        self.connectionLink.commit()  # Record all changes
-        self.databaseCursor.close()
-        self.connectionLink.close()
-
 
