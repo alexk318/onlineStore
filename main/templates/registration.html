@@ -1,0 +1,40 @@
+{% extends 'prototype.html' %}
+
+{% block title %}
+
+    Registration
+
+{% endblock %}
+
+
+{% block content_title %}
+
+    Registration
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="col-md-6">
+        
+        <form action="{{ url_for('registration_page') }}" method="POST">
+            
+            {% for form in regforms %}
+            
+                <div class="form-group">
+                    
+                        {{ form.label(class='control-label') }}
+                        {{ form(class='form-control') }}
+                
+                </div>
+            
+            {% endfor %}
+            
+            <button type="submit" class="btn btn-success">Do it</button>
+            
+        </form>
+        
+    </div>
+
+{% endblock %}
