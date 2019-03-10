@@ -11,6 +11,7 @@ blueprint_instance = Blueprint('buypage', __name__, template_folder='templates')
 @blueprint_instance.route('/')
 @login_required
 def products_page():
+    """Page Handler '/buy'"""
     products_list = Product.query.all()
     return render_template('products_page.html', products_list=products_list)
 
@@ -18,6 +19,7 @@ def products_page():
 @blueprint_instance.route('/<slug>')
 @login_required
 def product_link(slug) -> object:
+    """Handler full product page"""
     # First() is specified, because the return type of filter is BaseQuery.
     # BaseQuery does not have the necessary functionality. first() removes the BaseQuery type.
     specific_product = Product.query.filter(Product.slug == slug).first()
