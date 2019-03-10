@@ -1,7 +1,6 @@
 from wtforms import Form, StringField, TextAreaField, PasswordField  # Matching Models with HTML Forms
 
 
-# Form Description
 class RegisterForms(Form):
     nameform = StringField('Name:')
     surnameform = StringField('Surname:')
