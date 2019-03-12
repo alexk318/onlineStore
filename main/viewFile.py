@@ -5,15 +5,12 @@
 
 from flask import render_template, send_from_directory  # 'render_template' displays HTML to the page
 from flask import request, redirect, url_for
-
 from flask_security import login_required
-
 from formsFile import RegisterForms, ProductsAddingForms
-
 from webAppFile import app, db, user_datastore
-
 from modelsFile import Product
-
+import builtins
+import werkzeug.exceptions
 import os
 
 
@@ -67,25 +64,47 @@ def registration_page():
 @app.route('/sell', methods=['POST', 'GET'])
 @login_required
 def add_page():
+    adding_products_forms = ProductsAddingForms()
     if request.method == 'POST':
         customheadline = request.form['headlineform']
         customtext = request.form['textform']
         customdescription = request.form['descriptionform']
         customcost = request.form['costform']
-        customimg = request.files['inputFile']  # File storage
 
-        img_title = customimg.filename
+        try:
 
-        make_dir_image(customimg, customheadline)
+            customimg = request.files['inputFile']  # File storage
 
-        new_product = Product(headline=customheadline, text=customtext, description=customdescription,
-                                  cost=customcost, img_title=img_title)
+        except werkzeug.exceptions.BadRequestKeyError:
+            error = 'No picture inserted'
+            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
 
-        db.session.add(new_product)
-        db.session.commit()
+        forms = (customcost, customheadline, customdescription, customtext)
 
-        return redirect(url_for('welcome_page'))
+        for form in forms:
+            if form == '':
+                error = 'One of the form is not filled'
+                return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
 
-    adding_products_forms = ProductsAddingForms()
+            else:
+                img_title = customimg.filename
+
+                try:
+                    make_dir_image(customimg, customheadline)
+                # This exception occurs due to the fact that we create files in the static folder,
+                # saying that the static/ already exists when the product header is empty
+                except builtins.FileExistsError:  #
+                    error = 'One of the form is not filled'
+                    return render_template('products_add.html', adding_products_forms=adding_products_forms,
+                                           error=error)
+
+                new_product = Product(headline=customheadline, text=customtext, description=customdescription,
+                                      cost=customcost, img_title=img_title)
+
+                db.session.add(new_product)
+                db.session.commit()
+
+                return redirect(url_for('welcome_page'))
+
     return render_template('products_add.html', adding_products_forms=adding_products_forms)
 
