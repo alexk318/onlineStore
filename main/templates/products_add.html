@@ -19,7 +19,17 @@
 
 
     <div class="col-md-6">
-        
+
+        {% if error %}
+
+        <div class="alert alert-danger" role="alert">
+
+              {{ error }}
+
+        </div>
+
+        {% endif %}
+
         <form action="{{ url_for('add_page') }}" method="POST" enctype="multipart/form-data">
             
             {% for form in adding_products_forms %}
