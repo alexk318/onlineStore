@@ -9,7 +9,9 @@ class RegisterForms(Form):
 
 
 class ProductsAddingForms(Form):
-    headlineform = StringField('Headline:')
+    # We can use HTML markup
+    headlineform = StringField('Headline: <i>The headline must not exceed 35 characters. The headline should not be '
+                               'repeated</i>')
     descriptionform = TextAreaField('Description: ')
     textform = TextAreaField('Text:')
     costform = StringField('Cost:')
