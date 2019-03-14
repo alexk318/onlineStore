@@ -9,8 +9,6 @@ from flask_security import login_required
 from formsFile import RegisterForms, ProductsAddingForms
 from webAppFile import app, db, user_datastore
 from modelsFile import Product
-import builtins
-import werkzeug.exceptions
 import os
 
 
@@ -66,11 +64,17 @@ def registration_page():
 def add_page():
     adding_products_forms = ProductsAddingForms()
     if request.method == 'POST':
+
         customheadline = request.form['headlineform']
+        if len(customheadline) > 35:
+            error = 'The title must not exceed 35 characters!'
+            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
+
         customtext = request.form['textform']
         customdescription = request.form['descriptionform']
         customcost = request.form['costform']
 
+        import werkzeug.exceptions
         try:
 
             customimg = request.files['inputFile']  # File storage
@@ -89,12 +93,13 @@ def add_page():
             else:
                 img_title = customimg.filename
 
+                import builtins
                 try:
                     make_dir_image(customimg, customheadline)
                 # This exception occurs due to the fact that we create files in the static folder,
                 # saying that the static/ already exists when the product header is empty
-                except builtins.FileExistsError:  #
-                    error = 'One of the form is not filled'
+                except builtins.FileExistsError:
+                    error = 'This headline already exists'
                     return render_template('products_add.html', adding_products_forms=adding_products_forms,
                                            error=error)
 
