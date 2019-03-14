@@ -56,7 +56,7 @@ def slugify(string):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     img_title = db.Column(db.String(255))
-    headline = db.Column(db.String(35))
+    headline = db.Column(db.String(35))  # With 36 characters, the headline starts to go beyond the item card
     description = db.Column(db.String(45))
     text = db.Column(db.Text)
     cost = db.Column(db.String(7))
