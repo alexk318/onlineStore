@@ -67,7 +67,7 @@ def add_page():
 
         customheadline = request.form['headlineform']
         if len(customheadline) > 35:
-            error = 'The title must not exceed 35 characters!'
+            error = 'The headline must not exceed 35 characters!'
             return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
 
         customtext = request.form['textform']
