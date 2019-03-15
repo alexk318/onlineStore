@@ -12,7 +12,7 @@ class ProductsAddingForms(Form):
     # We can use HTML markup
     headlineform = StringField('Headline: <i>The headline must not exceed 35 characters. The headline should not be '
                                'repeated</i>')
-    descriptionform = TextAreaField('Description: ')
+    descriptionform = TextAreaField('Description: <i>The description must not exceed 50 characters</i>')
     textform = TextAreaField('Text:')
     costform = StringField('Cost:')
 
