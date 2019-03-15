@@ -72,6 +72,10 @@ def add_page():
 
         customtext = request.form['textform']
         customdescription = request.form['descriptionform']
+        if len(customdescription) > 50:
+            error = 'The description must not exceed 50 characters!'
+            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
+
         customcost = request.form['costform']
 
         import werkzeug.exceptions
