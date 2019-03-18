@@ -71,12 +71,20 @@ def add_page():
             return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
 
         customtext = request.form['textform']
+
         customdescription = request.form['descriptionform']
         if len(customdescription) > 50:
             error = 'The description must not exceed 50 characters!'
             return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
 
         customcost = request.form['costform']
+        if not customcost.isdigit():
+            error = 'In the form of "price" are letters!'
+            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
+
+        if len(customcost) > 5:
+            error = 'The number of digits price should not exceed five!'
+            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
 
         import werkzeug.exceptions
         try:
