@@ -14,5 +14,5 @@ class ProductsAddingForms(Form):
                                'repeated</i>')
     descriptionform = StringField('Description: <i>The description must not exceed 50 characters</i>')
     textform = TextAreaField('Text:')
-    costform = StringField('Cost:')
+    costform = StringField('Cost: <i>Maximum number of digits - 5</i>')
 
