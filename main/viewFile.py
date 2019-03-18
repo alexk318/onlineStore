@@ -117,3 +117,5 @@ def add_page():
 
     return render_template('products_add.html', adding_products_forms=adding_products_forms)
 
+
+

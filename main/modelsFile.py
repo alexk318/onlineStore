@@ -59,7 +59,7 @@ class Product(db.Model):
     headline = db.Column(db.String(35))  # With 36 characters, the headline starts to go beyond the item card
     description = db.Column(db.String(50))
     text = db.Column(db.Text)
-    cost = db.Column(db.String(7))
+    cost = db.Column(db.String(5))
     slug = db.Column(db.String(255), unique=True)  # Human-readable URL
     date_creation = db.Column(db.String(10), default=datetime.today().strftime("%d.%m.%Y"))
 
