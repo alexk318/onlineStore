@@ -18,7 +18,7 @@ def products_page():
 
 @blueprint_instance.route('/<slug>')
 @login_required
-def product_link(slug) -> object:
+def product_link(slug):
     """Handler full product page"""
     # First() is specified, because the return type of filter is BaseQuery.
     # BaseQuery does not have the necessary functionality. first() removes the BaseQuery type.
