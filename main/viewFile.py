@@ -103,7 +103,7 @@ def add_page():
                 # This exception occurs due to the fact that we create files in the static folder,
                 # saying that the static/ already exists when the product header is empty
                 except builtins.FileExistsError:
-                    error = 'This headline already exists'
+                    error = 'This headline already exists, or you did not enter a headline'
                     return render_template('products_add.html', adding_products_forms=adding_products_forms,
                                            error=error)
 
