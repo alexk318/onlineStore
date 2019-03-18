@@ -61,7 +61,7 @@ class Product(db.Model):
     text = db.Column(db.Text)
     cost = db.Column(db.String(7))
     slug = db.Column(db.String(255), unique=True)  # Human-readable URL
-    date_creation = db.Column(db.DateTime, default=datetime.now())
+    date_creation = db.Column(db.String(10), default=datetime.today().strftime("%d.%m.%Y"))
 
     def slug_generate(self):
         if self.headline:
