@@ -21,4 +21,10 @@
 
     &nbsp;Post creation date: {{ specific_product.date_creation }}
 
+    <br><br>
+
+    <form action="{{ url_for( 'buypage.add_to_cart', slug=specific_product.slug ) }}" method="GET">
+        <button type="submit" class="btn btn-success">Add to cart</button>
+    </form>
+
 {% endblock %}

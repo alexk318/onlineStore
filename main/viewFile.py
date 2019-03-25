@@ -3,12 +3,13 @@
 # View - Data mapping to user
 # Controller - Binds user and database, app
 
-from flask import render_template, send_from_directory  # 'render_template' displays HTML to the page
+from flask import render_template, session  # 'render_template' displays HTML to the page
 from flask import request, redirect, url_for
-from flask_security import login_required
+from flask_security import login_required, current_user
 from formsFile import RegisterForms, ProductsAddingForms
 from webAppFile import app, db, user_datastore
-from modelsFile import Product
+from modelsFile import Product, User
+from configurationFile import database_cursor, connection_link
 import os
 
 
@@ -42,6 +43,7 @@ def registration_page():
         surnameuser = request.form['surnameform']
         emailuser = request.form['emailform']
         passworduser = request.form['passwordform']
+        print(passworduser)
 
         # Create a user, equating the arguments of the class User to the values entered by the user.
         new_user = user_datastore.create_user(name=nameuser, surname=surnameuser, email=emailuser,
@@ -126,4 +128,31 @@ def add_page():
     return render_template('products_add.html', adding_products_forms=adding_products_forms)
 
 
+@app.route('/cart')
+@login_required
+def cart_page():
+
+    user_id = current_user.id
+    database_cursor.execute("SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
+                            "product.slug FROM product, Cart WHERE product.id = Cart.product_id AND Cart.user_id = %s",
+                            (user_id, ))
+
+    products = database_cursor.fetchall()
+
+    return render_template('cart_page.html', products=products)
+
+
+@app.route('/removeFromCart', methods=['GET'])
+@login_required
+def remove_from_cart():
+
+    if request.method == 'GET':
+
+        product_id = int(request.args.get('product_id'))
+        user_id = current_user.id
+
+        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (user_id, product_id))
+        connection_link.commit()
+
+        return render_template('welcome.html')
 

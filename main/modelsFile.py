@@ -10,7 +10,7 @@ from re import sub  # The function is responsible for changing the bad character
 role_user_link = db.Table('role_user',
                           db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
                           db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
-                          )  # Each user id is associated with a privilege id.
+                          )  # Each user id is associated with a privilege id
 
 
 class User(db.Model, UserMixin):  # User - Model ; User - Table in 'onlinestoredb' database
