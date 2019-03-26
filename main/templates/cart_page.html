@@ -1,0 +1,115 @@
+{% extends 'prototype.html' %}
+
+{% block title %}
+
+    Cart
+
+{% endblock %}
+
+{% block content_headline %}
+
+    Your shopping cart:
+
+{% endblock %}
+
+
+{% block content %}
+
+
+         <div class="col-md-10 products">
+
+             <div class="row">
+
+                {% for everyproduct in products %}
+
+                     <div class="col-sm-3">
+
+                         <div class="product">
+
+                             <div class="product-img">
+
+                                 <img src="../static/{{ everyproduct[2] + '/' + everyproduct[1] }}">
+
+                             </div>
+
+                             <br>
+
+                             <p class="product-title">
+
+                                 <a href="{{ url_for('buypage.product_link', slug=everyproduct[5]) }}">{{ everyproduct[2] }}</a>
+
+                             </p>
+
+                             <p class="product-desc">{{ everyproduct[3] }}</p>
+
+                             <p class="product-price">Price: ${{ everyproduct[4] }}</p>
+
+                             <a methods="GET" href="{{ url_for('remove_from_cart') }}?product_id={{everyproduct[0]}}">Remove</a>
+
+
+                         </div>
+
+                     </div>
+
+                 {% endfor %}
+
+             </div
+
+         </div>
+
+
+        <a methods="GET" href="{{ url_for('do_buy') }}">Buy</a>
+
+        <style>
+
+        img {
+         max-width: 100%;
+         width: 750px;
+         height: 210px;
+         display: block;
+         margin:auto;
+        }
+        .content{
+         margin-top: 50px;
+        }
+        .product {
+
+         background: #fff none repeat scroll 0 0;
+         border: 2px solid #c0c0c0;
+         height: 410px;
+         overflow: hidden;
+         padding: 25px 15px;
+         position: relative;
+         text-align: center;
+         transition: all 0.5s ease 0s;
+         margin-bottom: 20px;
+        }
+        .product:hover {
+         box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+        }
+        .product-img {
+         height: 200px;
+        }
+        .product-title a {
+         color: #000;
+         font-weight: 500;
+         text-transform: uppercase;
+        }
+        .product-desc {
+         max-height: 60px;
+         overflow: hidden;
+        }
+        .product-price {
+         bottom: 15px;
+         left: 0;
+         position: absolute;
+         width: 100%;
+         color: #d51e08;
+         font-size: 18px;
+         font-weight: 500;
+        }
+
+        </style>
+
+{% endblock %}
+

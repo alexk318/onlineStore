@@ -156,3 +156,14 @@ def remove_from_cart():
 
         return render_template('welcome.html')
 
+
+@app.route('/buyCart', methods=['GET'])
+@login_required
+def do_buy():
+
+    if request.method == 'GET':
+        user_id = current_user.id
+        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s', (user_id, ))
+        connection_link.commit()
+
+    return render_template('welcome.html')
