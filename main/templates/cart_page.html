@@ -8,7 +8,14 @@
 
 {% block content_headline %}
 
-    Your shopping cart:
+    {% if products: %}
+        Your shopping cart:
+
+    {% else %}
+        Your shopping cart is empty
+
+    {% endif %}
+
 
 {% endblock %}
 
@@ -58,7 +65,11 @@
          </div>
 
 
-        <a methods="GET" href="{{ url_for('do_buy') }}">Buy</a>
+        {% if products %}
+
+            <a methods="GET" href="{{ url_for('do_buy') }}">Buy</a>
+
+        {% endif %}
 
         <style>
 

@@ -10,7 +10,13 @@
 
 {% block content_headline %}
 
-    Products:
+    {% if products_list %}
+        Products:
+
+    {% else %}
+        There are currently no products to sell
+
+    {% endif %}
 
 {% endblock %}
 

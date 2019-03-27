@@ -48,6 +48,16 @@
               </li>
           
           {% endif %}
+
+          {% if current_user.has_role('Administrator') %}
+
+              <li class="nav-item">
+
+                    <a class="nav-link" href="/admin">Admin panel</a>
+
+              </li>
+
+           {% endif %}
           
           {% if current_user.is_authenticated %}
          
@@ -66,39 +76,28 @@
               </li>
           
         {% endif %}
-        
-        
-         {% if current_user.has_role('Administrator') %}
-          
-              <li class="nav-item">
-
-                    <a class="nav-link" href="/admin">Admin panel</a>
-
-              </li>
-              
-           {% endif %}
-           
-          
-          {% if current_user.is_authenticated %}
-          
-             <ul class="nav navbar-nav navbar-right">
-
-                 <li><a class="nav-link" href="/logout">Logout</a></li>
-
-              </ul>
-              
-           {% endif %}
 
 
           {% if current_user.is_authenticated %}
 
-              <ul class="nav navbar-nav navbar-right">
+              <ul class="nav navbar-nav my-2 my-sm-0">
 
                      <li><a class="nav-link" href="{{ url_for('cart_page') }}">Shopping Cart</a></li>
 
                   </ul>
 
           {% endif %}
+
+          {% if current_user.is_authenticated %}
+
+             <ul class="nav navbar-nav">
+
+                 <li><a class="nav-link" href="/logout">Logout</a></li>
+
+              </ul>
+
+           {% endif %}
+
         
           
       </ul>
