@@ -33,6 +33,11 @@ def welcome_page():  # Define the 'View'
     return render_template('welcome.html')
 
 
+@app.route('/profile')
+def define_profile():
+
+    return render_template('profile_page.html')
+
 @app.route('/registration', methods=['POST', 'GET'])
 def registration_page():
 
