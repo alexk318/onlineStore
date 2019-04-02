@@ -23,7 +23,15 @@
 
     {% else %} <!-- What if this is someone else's profile -->
         {{ specific_user.name }}'s profile <br>
-        <button type="button" class="btn btn-danger">Add to blacklist</button>
+
+        {% if current_user.has_role('Administrator') %}
+            <button type="button" class="btn btn-danger">Add to blacklist</button>
+        {% endif %}
+
+        <!-- Moderator can not block the Administrator -->
+        {% if not specific_user.has_role('Administrator') and current_user.has_role('Moderator') %}
+            <button type="button" class="btn btn-danger">Add to blacklist</button>
+        {% endif %}
 
 
 
