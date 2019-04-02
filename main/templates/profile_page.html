@@ -10,19 +10,21 @@
 
 {% block content_headline %}
 
-    {% if specific_user not in all_users: %}
+    {% if specific_user not in all_users: %} <!-- What to do if there is no user with this name -->
         This user does not exist
 
     {% endif %}
 
 
-    {% if specific_user == current_user %}
+    {% if specific_user == current_user %} <!-- What if this is a current user profile -->
 
         &nbsp;Your profile:
 
 
-    {% else %}
+    {% else %} <!-- What if this is someone else's profile -->
         {{ specific_user.name }}'s profile
+
+
 
     {% endif %}
 
