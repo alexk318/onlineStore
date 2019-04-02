@@ -5,9 +5,7 @@ from configurationFile import database_cursor, connection_link
 # A decorator that allows only authorized users to log in to a specific View
 from flask_security import login_required, current_user
 
-from modelsFile import Product
-
-from webAppFile import db
+from modelsFile import Product, User
 
 # Shopping has a branch of addresses in it, so Blueprint is used here
 # Blueprint name, __name__, Folder with HTML
@@ -31,16 +29,6 @@ def product_link(slug):
     # First() is specified, because the return type of filter is BaseQuery.
     # BaseQuery does not have the necessary functionality. first() removes the BaseQuery type.
     specific_product = Product.query.filter(Product.slug == slug).first()
-
-    #cart = list()
-
-    #if request.method == 'POST':
-
-       # cart.append(specific_product.id)
-
-        #session["cart"] = cart
-
-        #return render_template('welcome.html')
 
     return render_template('link.html', specific_product=specific_product)
 

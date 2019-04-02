@@ -19,7 +19,8 @@
 
     <p> &nbsp;&nbsp;{{ specific_product.text }} </p>
 
-    &nbsp;Author: {{ specific_product.author }}  <br>  &nbsp;Post creation date: {{ specific_product.date_creation }}
+    &nbsp;Author: <a href="{{ url_for('define_profile', username=specific_product.author) }}">{{ specific_product.author }}</a>
+    <br>  &nbsp;Post creation date: {{ specific_product.date_creation }}
 
     <br><br>
 

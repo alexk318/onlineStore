@@ -10,7 +10,22 @@
 
 {% block content_headline %}
 
-    &nbsp;Your profile
+    {% if specific_user not in all_users: %}
+        This user does not exist
+
+    {% endif %}
+
+
+    {% if specific_user == current_user %}
+
+        &nbsp;Your profile:
+
+
+    {% else %}
+        {{ specific_user.name }}'s profile
+
+    {% endif %}
+
 
 {% endblock %}
 

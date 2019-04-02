@@ -33,10 +33,14 @@ def welcome_page():  # Define the 'View'
     return render_template('welcome.html')
 
 
-@app.route('/profile')
-def define_profile():
+@app.route('/profile/<username>')
+def define_profile(username):
 
-    return render_template('profile_page.html')
+    specific_user = User.query.filter(User.name == username).first()
+
+    all_users = User.query.all()
+
+    return render_template('profile_page.html', specific_user=specific_user, all_users=all_users)
 
 
 @app.route('/registration', methods=['POST', 'GET'])
