@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):  # User - Model ; User - Table in 'onlinestored
     surname = db.Column(db.String(50))
     email = db.Column(db.String(50), unique=True)  # E-mail must be unique
     password = db.Column(db.String(255))
-    active = db.Column(db.Boolean())
+    active = db.Column(db.Boolean(), default=True)
     # Linking 'User' and 'Role'
     # 'Role' - Related model. 'role_user_link' - Table with data for linking relationships.
     # 'relatedusers' - Property for class 'Role'. 'dynamic' - When appealing, we get a BaseQuery object

@@ -33,10 +33,18 @@ def welcome_page():  # Define the 'View'
     return render_template('welcome.html')
 
 
-@app.route('/profile/<username>')
+@app.route('/profile/<username>', methods=['GET', 'POST'])
+@login_required
 def define_profile(username):
-
     specific_user = User.query.filter(User.name == username).first()
+
+    if request.method == 'POST':
+
+        database_cursor.execute("UPDATE `User` SET `active` = '0' WHERE (`name` = %s)", (specific_user.name, ))
+        connection_link.commit()
+
+        message = 'User "' + specific_user.name + '" successfully blocked'
+        return render_template('message.html', message=message)
 
     all_users = User.query.all()
 
@@ -177,3 +185,6 @@ def do_buy():
         connection_link.commit()
 
     return render_template('welcome.html')
+
+
+

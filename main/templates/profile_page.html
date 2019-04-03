@@ -22,15 +22,19 @@
 
 
     {% else %} <!-- What if this is someone else's profile -->
-        {{ specific_user.name }}'s profile <br>
+        {{ specific_user.name }}'s profile
 
         {% if current_user.has_role('Administrator') %}
-            <button type="button" class="btn btn-danger">Add to blacklist</button>
+            <form action="{{ url_for('define_profile', username=specific_user.name) }}", method="POST">
+                <button type="submit" class="btn btn-danger">Add to blacklist</button>
+            </form>
         {% endif %}
 
         <!-- Moderator can not block the Administrator -->
         {% if not specific_user.has_role('Administrator') and current_user.has_role('Moderator') %}
-            <button type="button" class="btn btn-danger">Add to blacklist</button>
+            <form action="{{ url_for('define_profile', username=specific_user.name) }}", method="POST">
+                <button type="button" class="btn btn-danger">Add to blacklist</button>
+            </form>
         {% endif %}
 
 
