@@ -18,11 +18,11 @@
 
     {% if specific_user == current_user %} <!-- What if this is a current user profile -->
 
-        &nbsp;Your profile:
+        &nbsp;Your statistics:
 
 
     {% else %} <!-- What if this is someone else's profile -->
-        {{ specific_user.name }}'s profile
+        {{ specific_user.name }}'s statistics
 
         {% if current_user.has_role('Administrator') %}
             <form action="{{ url_for('define_profile', username=specific_user.name) }}", method="POST">

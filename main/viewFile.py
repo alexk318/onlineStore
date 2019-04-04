@@ -35,7 +35,7 @@ def welcome_page():  # Define the 'View'
 
 @app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
-def define_profile(username):
+def define_statistics(username):
     specific_user = User.query.filter(User.name == username).first()
 
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def define_profile(username):
 
     all_users = User.query.all()
 
-    return render_template('profile_page.html', specific_user=specific_user, all_users=all_users)
+    return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users)
 
 
 @app.route('/registration', methods=['POST', 'GET'])
