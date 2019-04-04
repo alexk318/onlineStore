@@ -21,7 +21,7 @@
 
     <p> &nbsp;&nbsp;{{ specific_product.text }} </p>
 
-    &nbsp;Author: <a href="{{ url_for('define_profile', username=specific_product.author) }}">{{ specific_product.author }}</a>
+    &nbsp;Author: <a href="{{ url_for('define_statistics', username=specific_product.author) }}">{{ specific_product.author }}</a>
     <br>  &nbsp;Post creation date: {{ specific_product.date_creation }}
 
     <br><br>
