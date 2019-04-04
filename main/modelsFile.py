@@ -17,7 +17,6 @@ class User(db.Model, UserMixin):  # User - Model ; User - Table in 'onlinestored
     # primary_key - Unique identification of table entries
     id = db.Column(db.Integer(), primary_key=True)  # Column in the database with the data type Integer
     name = db.Column(db.String(50))  # Real person's name
-    surname = db.Column(db.String(50))
     email = db.Column(db.String(50), unique=True)  # E-mail must be unique
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean(), default=True)
