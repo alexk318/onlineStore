@@ -38,7 +38,7 @@ def welcome_page():  # Define the 'View'
 def define_statistics(username):
     specific_user = User.query.filter(User.name == username).first()
 
-    if request.method == 'POST':
+    if request.method == 'POST':  # If we press a button, this happens:
 
         database_cursor.execute("UPDATE `User` SET `active` = '0' WHERE (`name` = %s)", (specific_user.name, ))
         connection_link.commit()
@@ -47,8 +47,13 @@ def define_statistics(username):
         return render_template('message.html', message=message)
 
     all_users = User.query.all()
+    database_cursor.execute("SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
+                            "product.slug FROM product WHERE product.author = %s", (specific_user.name, ))
 
-    return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users)
+    specific_user_products = database_cursor.fetchall()
+
+    return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users,
+                           specific_user_products=specific_user_products)
 
 
 @app.route('/registration', methods=['POST', 'GET'])
