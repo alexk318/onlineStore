@@ -18,9 +18,6 @@
 
     {% if specific_user == current_user %} <!-- What if this is a current user profile -->
 
-        &nbsp;Your statistics:
-
-
     {% else %} <!-- What if this is someone else's profile -->
         {{ specific_user.name }}'s statistics
 
