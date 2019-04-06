@@ -60,14 +60,18 @@
 
                  {% endfor %}
 
-             </div
+             </div>
 
          </div>
 
 
         {% if products %}
 
-            <a methods="GET" href="{{ url_for('do_buy') }}">Buy</a>
+            <form action="{{ url_for( 'do_buy' ) }}" method="GET">
+
+                <button type="submit" class="btn btn-success">Buy</button>
+
+            </form>
 
         {% endif %}
 

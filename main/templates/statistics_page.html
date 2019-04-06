@@ -39,13 +39,53 @@
     {% endif %}
 
 
-    <h2>Your products for sale:</h2>
+    <h3>Sales history:</h3>
 
      <div class="col-md-10 products">
 
              <div class="row">
 
                 {% for everyproduct in specific_user_products %}
+
+                     <div class="col-sm-3">
+
+                         <div class="product">
+
+                             <div class="product-img">
+
+                                 <img src="../static/{{ everyproduct[2] + '/' + everyproduct[1] }}">
+
+                             </div>
+
+                             <br>
+
+                             <p class="product-title">
+
+                                 <a href="{{ url_for('buypage.product_link', slug=everyproduct[5]) }}">{{ everyproduct[2] }}</a>
+
+                             </p>
+
+                             <p class="product-desc">{{ everyproduct[3] }}</p>
+
+                             <p class="product-price">Price: ${{ everyproduct[4] }}</p>
+
+                         </div>
+
+                     </div>
+
+                 {% endfor %}
+
+             </div>
+
+         </div>
+
+    <h3>Purchase history:</h3>
+
+        <div class="col-md-10 products">
+
+             <div class="row">
+
+                {% for everyproduct in specific_user_purchase_history %}
 
                      <div class="col-sm-3">
 

@@ -52,8 +52,17 @@ def define_statistics(username):
 
     specific_user_products = database_cursor.fetchall()
 
+    database_cursor.execute(
+        "SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
+        "product.slug FROM product, purchase_history WHERE product.id = purchase_history.product_id AND "
+        "purchase_history.user_id = %s",
+        (current_user.id,))
+
+    specific_user_purchase_history = database_cursor.fetchall()
+
     return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users,
-                           specific_user_products=specific_user_products)
+                           specific_user_products=specific_user_products,
+                           specific_user_purchase_history=specific_user_purchase_history)
 
 
 @app.route('/registration', methods=['POST', 'GET'])
@@ -185,8 +194,17 @@ def remove_from_cart():
 def do_buy():
 
     if request.method == 'GET':
-        user_id = current_user.id
-        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s', (user_id, ))
+
+        database_cursor.execute("SELECT product_id FROM Cart WHERE user_id = %s", (current_user.id, ))
+        specific_user_cart = database_cursor.fetchall()
+
+        for everyproduct in specific_user_cart:
+            database_cursor.execute("INSERT INTO purchase_history (user_id, product_id) VALUES (%s, %s)",
+                                    (current_user.id,
+                                     everyproduct[0]))
+        connection_link.commit()
+
+        database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
         connection_link.commit()
 
     return render_template('welcome.html')

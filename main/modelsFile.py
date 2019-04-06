@@ -29,10 +29,7 @@ class User(db.Model, UserMixin):  # User - Model ; User - Table in 'onlinestored
     def __repr__(self):  # repr - Represents the output of the class object in a more readable form.
         return '<User ID: {}, Email: {}>'.format(self.id, self.email)  # format to substitute values in braces
 
-    # There are three roles:
-    # Administrator [Has access to the admin panel and can add all to the blacklist.]
-    # Moderator [Verifies user posts. Only regular users can add to the blacklist.]
-    # Regular user [Everyone who registers automatically receives this role.]
+    # Administrator - Has access to the admin panel and can add all to the blacklist.
 
 
 class Role(db.Model, RoleMixin):
