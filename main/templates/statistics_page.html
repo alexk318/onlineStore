@@ -26,17 +26,15 @@
                 <button type="submit" class="btn btn-danger">Add to blacklist</button>
             </form>
         {% endif %}
-
-        <!-- Moderator can not block the Administrator -->
-        {% if not specific_user.has_role('Administrator') %}
-            <form action="{{ url_for('define_statistics', username=specific_user.name) }}", method="POST">
-                <button type="button" class="btn btn-danger">Add to blacklist</button>
-            </form>
-        {% endif %}
     {% endif %}
 
+    {% if specific_user_products %}
+        <h3>Sales history:</h3>
 
-    <h3>Sales history:</h3>
+    {% else %}
+        <h3>Sales history is empty</h3>
+
+    {% endif %}
 
      <div class="col-md-10 products">
 
@@ -76,7 +74,13 @@
 
          </div>
 
-    <h3>Purchase history:</h3>
+    {% if specific_user_purchase_history %}
+        <h3>Purchase history:</h3>
+
+    {% else %}
+        <h3>Purchase history is empty</h3>
+
+    {% endif %}
 
         <div class="col-md-10 products">
 
@@ -98,7 +102,7 @@
 
                              <p class="product-title">
 
-                                 <a href="{{ url_for('buypage.product_link', slug=everyproduct[5]) }}">{{ everyproduct[2] }}</a>
+                                 <a>{{ everyproduct[2] }}</a>
 
                              </p>
 

@@ -204,10 +204,11 @@ def do_buy():
                                      everyproduct[0]))
         connection_link.commit()
 
+        database_cursor.execute(
+            "DELETE FROM Product WHERE product_id = Product.id")
+
         database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
         connection_link.commit()
 
     return render_template('welcome.html')
-
-
 
