@@ -204,8 +204,9 @@ def do_buy():
             database_cursor.execute("UPDATE product SET product.slug = NULL WHERE product.id = %s", (everyproduct[0], ))
             connection_link.commit()
 
-        #database_cursor.execute("INSERT INTO purchase_history (user_id, product_id) VALUES (%s, %s)"(current_user.id
-           # connection_link.commit()
+            database_cursor.execute("INSERT INTO purchase_history (user_id, product_id) VALUES (%s, %s)",
+                                    (current_user.id, everyproduct[0]))
+            connection_link.commit()
 
         database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
         connection_link.commit()
