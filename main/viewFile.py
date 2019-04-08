@@ -195,8 +195,7 @@ def do_buy():
     if request.method == 'GET':
 
         database_cursor.execute(
-            "SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
-            "product.slug FROM product, Cart WHERE product.id = Cart.product_id AND Cart.user_id = %s",
+            "SELECT product.id FROM product, Cart WHERE product.id = Cart.product_id AND Cart.user_id = %s",
             (current_user.id,))
 
         products = database_cursor.fetchall()
