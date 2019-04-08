@@ -29,32 +29,36 @@
              <div class="row">
            
                 {% for everyproduct in products_list %}
+
+                    {% if everyproduct.slug %}
                 
-                     <div class="col-sm-3">
+                         <div class="col-sm-3">
 
-                         <div class="product">
+                             <div class="product">
 
-                             <div class="product-img">
+                                 <div class="product-img">
 
-                                 <img src="../static/{{ everyproduct.headline + '/' + everyproduct.img_title }}">
+                                     <img src="../static/{{ everyproduct.headline + '/' + everyproduct.img_title }}">
+
+                                 </div>
+
+                                 <br>
+
+                                 <p class="product-title">
+
+                                     <a href="{{ url_for('buypage.product_link', slug=everyproduct.slug) }}">{{ everyproduct.headline }}</a>
+
+                                 </p>
+
+                                 <p class="product-desc">{{ everyproduct.description }}</p>
+
+                                 <p class="product-price">Price: ${{ everyproduct.cost }}</p>
 
                              </div>
 
-                             <br>
-
-                             <p class="product-title">
-
-                                 <a href="{{ url_for('buypage.product_link', slug=everyproduct.slug) }}">{{ everyproduct.headline }}</a>
-
-                             </p>
-
-                             <p class="product-desc">{{ everyproduct.description }}</p>
-
-                             <p class="product-price">Price: ${{ everyproduct.cost }}</p>
-
                          </div>
 
-                     </div>
+                    {% endif %}
                          
                  {% endfor %}
                        

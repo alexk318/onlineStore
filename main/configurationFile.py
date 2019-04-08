@@ -27,14 +27,14 @@ dbconfig = app.config['databaseConfig'] = {'host': '127.0.0.1',
 connection_link = mysql.connector.connect(**dbconfig)
 database_cursor = connection_link.cursor()
 
-# database_cursor.execute('''CREATE TABLE Cart
+#database_cursor.execute('''CREATE TABLE Cart
 #                        (user_id INTEGER,
 #                        product_id INTEGER,
 #                        FOREIGN KEY(user_id) REFERENCES user(id),
 #                        FOREIGN KEY(product_id) REFERENCES product(id)
 #                        )''')
 
-# database_cursor.execute('''CREATE TABLE purchase_history
+#database_cursor.execute('''CREATE TABLE purchase_history
 #                        (user_id INTEGER,
 #                        product_id INTEGER,
 #                        FOREIGN KEY(user_id) REFERENCES user(id),

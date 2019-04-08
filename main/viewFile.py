@@ -38,14 +38,6 @@ def welcome_page():  # Define the 'View'
 def define_statistics(username):
     specific_user = User.query.filter(User.name == username).first()
 
-    if request.method == 'POST':  # If we press a button, this happens:
-
-        database_cursor.execute("UPDATE `User` SET `active` = '0' WHERE (`name` = %s)", (specific_user.name, ))
-        connection_link.commit()
-
-        message = 'User "' + specific_user.name + '" successfully blocked'
-        return render_template('message.html', message=message)
-
     all_users = User.query.all()
     database_cursor.execute("SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
                             "product.slug FROM product WHERE product.author = %s", (specific_user.name, ))
@@ -59,6 +51,14 @@ def define_statistics(username):
         (current_user.id,))
 
     specific_user_purchase_history = database_cursor.fetchall()
+
+    if request.method == 'POST':  # If we press a button, this happens:
+
+        database_cursor.execute("UPDATE `User` SET `active` = '0' WHERE (`name` = %s)", (specific_user.name, ))
+        connection_link.commit()
+
+        message = 'User "' + specific_user.name + '" successfully blocked'
+        return render_template('message.html', message=message)
 
     return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users,
                            specific_user_products=specific_user_products,
@@ -150,7 +150,8 @@ def add_page():
                                            error=error)
 
                 new_product = Product(headline=customheadline, text=customtext, description=customdescription,
-                                      cost=customcost, img_title=img_title, author=current_user.name)
+                                      cost=customcost, img_title=img_title, author=current_user.name,
+                                      author_id=current_user.id)
 
                 db.session.add(new_product)
                 db.session.commit()
@@ -163,11 +164,9 @@ def add_page():
 @app.route('/cart')
 @login_required
 def cart_page():
-
-    user_id = current_user.id
     database_cursor.execute("SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
                             "product.slug FROM product, Cart WHERE product.id = Cart.product_id AND Cart.user_id = %s",
-                            (user_id, ))
+                            (current_user.id,))
 
     products = database_cursor.fetchall()
 
@@ -195,17 +194,19 @@ def do_buy():
 
     if request.method == 'GET':
 
-        database_cursor.execute("SELECT product_id FROM Cart WHERE user_id = %s", (current_user.id, ))
-        specific_user_cart = database_cursor.fetchall()
-
-        for everyproduct in specific_user_cart:
-            database_cursor.execute("INSERT INTO purchase_history (user_id, product_id) VALUES (%s, %s)",
-                                    (current_user.id,
-                                     everyproduct[0]))
-        connection_link.commit()
-
         database_cursor.execute(
-            "DELETE FROM Product WHERE product_id = Product.id")
+            "SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
+            "product.slug FROM product, Cart WHERE product.id = Cart.product_id AND Cart.user_id = %s",
+            (current_user.id,))
+
+        products = database_cursor.fetchall()
+
+        for everyproduct in products:
+            database_cursor.execute("UPDATE product SET product.slug = NULL WHERE product.id = %s", (everyproduct[0], ))
+            connection_link.commit()
+
+        #database_cursor.execute("INSERT INTO purchase_history (user_id, product_id) VALUES (%s, %s)"(current_user.id
+           # connection_link.commit()
 
         database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
         connection_link.commit()

@@ -12,13 +12,11 @@
 
     {% if specific_user not in all_users: %} <!-- What to do if there is no user with this name -->
         This user does not exist
-
     {% endif %}
 
 
-    {% if specific_user == current_user %} <!-- What if this is a current user profile -->
+    {% if specific_user != current_user %} <!-- What if this is a current user profile -->
 
-    {% else %} <!-- What if this is someone else's profile -->
         {{ specific_user.name }}'s statistics
 
         {% if current_user.has_role('Administrator') %}
@@ -26,6 +24,7 @@
                 <button type="submit" class="btn btn-danger">Add to blacklist</button>
             </form>
         {% endif %}
+
     {% endif %}
 
     {% if specific_user_products %}
@@ -42,31 +41,35 @@
 
                 {% for everyproduct in specific_user_products %}
 
-                     <div class="col-sm-3">
+                    {% if everyproduct[5] %}
 
-                         <div class="product">
+                         <div class="col-sm-3">
 
-                             <div class="product-img">
+                             <div class="product">
 
-                                 <img src="../static/{{ everyproduct[2] + '/' + everyproduct[1] }}">
+                                 <div class="product-img">
+
+                                     <img src="../static/{{ everyproduct[2] + '/' + everyproduct[1] }}">
+
+                                 </div>
+
+                                 <br>
+
+                                 <p class="product-title">
+
+                                     <a href="{{ url_for('buypage.product_link', slug=everyproduct[5]) }}">{{ everyproduct[2] }}</a>
+
+                                 </p>
+
+                                 <p class="product-desc">{{ everyproduct[3] }}</p>
+
+                                 <p class="product-price">Price: ${{ everyproduct[4] }}</p>
 
                              </div>
 
-                             <br>
-
-                             <p class="product-title">
-
-                                 <a href="{{ url_for('buypage.product_link', slug=everyproduct[5]) }}">{{ everyproduct[2] }}</a>
-
-                             </p>
-
-                             <p class="product-desc">{{ everyproduct[3] }}</p>
-
-                             <p class="product-price">Price: ${{ everyproduct[4] }}</p>
-
                          </div>
 
-                     </div>
+                    {% endif %}
 
                  {% endfor %}
 
