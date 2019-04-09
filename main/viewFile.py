@@ -138,24 +138,29 @@ def add_page():
 
             else:
                 img_title = customimg.filename
+                if not img_title.lower().endswith(('.png', '.jpg', '.jpeg')):
+                    error = 'Valid extensions for photos: ".png, .jpg, .jpeg, .jpe"'
+                    return render_template('products_add.html', adding_products_forms=adding_products_forms,error=error)
 
-                import builtins
-                try:
-                    make_dir_image(customimg, customheadline)
-                # This exception occurs due to the fact that we create files in the static folder,
-                # saying that the static/ already exists when the product header is empty
-                except builtins.FileExistsError:
-                    error = 'This headline already exists, or you did not enter a headline'
-                    return render_template('products_add.html', adding_products_forms=adding_products_forms,
-                                           error=error)
+                else:
 
-                new_product = Product(headline=customheadline, text=customtext, description=customdescription,
-                                      cost=customcost, img_title=img_title, author=current_user.name)
+                    import builtins
+                    try:
+                        make_dir_image(customimg, customheadline)
+                    # This exception occurs due to the fact that we create files in the static folder,
+                    # saying that the static/ already exists when the product header is empty
+                    except builtins.FileExistsError:
+                        error = 'This headline already exists, or you did not enter a headline'
+                        return render_template('products_add.html', adding_products_forms=adding_products_forms,
+                                               error=error)
 
-                db.session.add(new_product)
-                db.session.commit()
+                    new_product = Product(headline=customheadline, text=customtext, description=customdescription,
+                                          cost=customcost, img_title=img_title, author=current_user.name)
 
-                return redirect(url_for('welcome_page'))
+                    db.session.add(new_product)
+                    db.session.commit()
+
+                    return redirect(url_for('welcome_page'))
 
     return render_template('products_add.html', adding_products_forms=adding_products_forms)
 
