@@ -150,8 +150,7 @@ def add_page():
                                            error=error)
 
                 new_product = Product(headline=customheadline, text=customtext, description=customdescription,
-                                      cost=customcost, img_title=img_title, author=current_user.name,
-                                      author_id=current_user.id)
+                                      cost=customcost, img_title=img_title, author=current_user.name)
 
                 db.session.add(new_product)
                 db.session.commit()
