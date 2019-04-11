@@ -34,11 +34,4 @@ database_cursor = connection_link.cursor()
 #                        FOREIGN KEY(product_id) REFERENCES product(id)
 #                        )''')
 
-#database_cursor.execute('''CREATE TABLE purchase_history
-#                        (user_id INTEGER,
-#                        product_id INTEGER,
-#                        FOREIGN KEY(user_id) REFERENCES user(id),
-#                        FOREIGN KEY(product_id) REFERENCES product(id)
-#                        )''')
-
 

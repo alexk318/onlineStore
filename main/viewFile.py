@@ -39,18 +39,6 @@ def define_statistics(username):
     specific_user = User.query.filter(User.name == username).first()
 
     all_users = User.query.all()
-    database_cursor.execute("SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
-                            "product.slug FROM product WHERE product.author = %s", (specific_user.name, ))
-
-    specific_user_products = database_cursor.fetchall()
-
-    database_cursor.execute(
-        "SELECT product.id, product.img_title, product.headline, product.description, product.cost,"
-        "product.slug FROM product, purchase_history WHERE product.id = purchase_history.product_id AND "
-        "purchase_history.user_id = %s",
-        (current_user.id,))
-
-    specific_user_purchase_history = database_cursor.fetchall()
 
     if request.method == 'POST':  # If we press a button, this happens:
 
@@ -60,9 +48,7 @@ def define_statistics(username):
         message = 'User "' + specific_user.name + '" successfully blocked'
         return render_template('message.html', message=message)
 
-    return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users,
-                           specific_user_products=specific_user_products,
-                           specific_user_purchase_history=specific_user_purchase_history)
+    return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users)
 
 
 @app.route('/registration', methods=['POST', 'GET'])
@@ -206,10 +192,6 @@ def do_buy():
 
         for everyproduct in products:
             database_cursor.execute("UPDATE product SET product.slug = NULL WHERE product.id = %s", (everyproduct[0], ))
-            connection_link.commit()
-
-            database_cursor.execute("INSERT INTO purchase_history (user_id, product_id) VALUES (%s, %s)",
-                                    (current_user.id, everyproduct[0]))
             connection_link.commit()
 
         database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
