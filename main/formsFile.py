@@ -10,10 +10,13 @@ class RegisterForms(Form):
 
 class ProductsAddingForms(Form):
     # We can use HTML markup
-    headlineform = StringField('Headline: <i>The headline must not exceed 35 characters. The headline should not be '
-                               'repeated</i>',render_kw={'maxlength': 35})
-    descriptionform = StringField('Description: <i>The description must not exceed 50 characters</i>',
-                                  render_kw={'maxlength': 50})
+    headlineform = StringField('Headline:',render_kw={'maxlength': 35,
+                                                      'placeholder': 'The headline must not exceed 35 characters. '
+                                                                     'The headline should not be repeated'})
+
+    descriptionform = StringField('Description:',
+                                  render_kw={'maxlength': 50, 'placeholder': 'The description must not exceed 50 '
+                                                                             'characters'})
     textform = TextAreaField('Text:')
-    costform = StringField('Cost: <i>Maximum number of digits - 5</i>', render_kw={'maxlength': 5})
+    costform = StringField('Cost:', render_kw={'maxlength': 5, 'placeholder': 'Maximum number of digits - 5'})
 
