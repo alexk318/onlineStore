@@ -12,11 +12,13 @@ class ProductsAddingForms(Form):
     # We can use HTML markup
     headlineform = StringField('Headline:',render_kw={'maxlength': 35,
                                                       'placeholder': 'The headline must not exceed 35 characters. '
-                                                                     'The headline should not be repeated'})
+                                                                     'The headline should not be repeated',
+                                                      'required': True})
 
     descriptionform = StringField('Description:',
                                   render_kw={'maxlength': 50, 'placeholder': 'The description must not exceed 50 '
-                                                                             'characters'})
-    textform = TextAreaField('Text:')
-    costform = StringField('Cost:', render_kw={'maxlength': 5, 'placeholder': 'Maximum number of digits - 5'})
+                                                                             'characters', 'required': True})
+    textform = TextAreaField('Text:', render_kw={'required': True})
+    costform = StringField('Cost:', render_kw={'maxlength': 5, 'placeholder': 'Maximum number of digits - 5',
+                                               'required': True})
 
