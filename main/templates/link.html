@@ -12,17 +12,17 @@
 
     <img src="../static/{{ specific_product.headline + '/' + specific_product.img_title }}">
 
-    &nbsp;{{ specific_product.headline }}
+    {{ specific_product.headline }}
 
 {% endblock %}
 
 
 {% block content %}
 
-    <p> &nbsp;&nbsp;{{ specific_product.text }} </p>
+    <p> {{ specific_product.text }} </p>
 
-    &nbsp;Author: <a href="{{ url_for('define_statistics', username=specific_product.author) }}">{{ specific_product.author }}</a>
-    <br>  &nbsp;Post creation date: {{ specific_product.date_creation }}
+    Author: <a href="{{ url_for('define_statistics', username=specific_product.author) }}">{{ specific_product.author }}</a>
+    <br>  Post creation date: {{ specific_product.date_creation }}
 
     <br><br>
 

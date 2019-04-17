@@ -10,22 +10,20 @@
 
 {% block content_headline %}
 
-    &nbsp; Welcome to the online auto parts store!
+    Welcome to the online auto parts store!
 
 {% endblock %}
 
 
 {% block content %}
-    
+
     {% if current_user.is_authenticated %}
-        <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select the desired action in 'Deals'</i>
-        
+        <i> Select the desired action in menu</i>
+
     {% else %}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>To buy or sell, register or log in<i>
+        <i>To buy or sell, register or log in<i>
 
     {% endif %}
 
-    
+
 {% endblock %}
-
-
