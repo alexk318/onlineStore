@@ -10,20 +10,34 @@
 
 {% block content_headline %}
 
-    Welcome to the online auto parts store!
+    <div class=col-md-6>
+
+      {% if not current_user.is_authenticated %}
+        Welcome to the online auto parts store!
+
+      {% else %}
+        Hello, {{ current_user.name }}!
+
+      {% endif %}
+
+    </div>
 
 {% endblock %}
 
 
 {% block content %}
 
+  <div class=col-md-6>
+
     {% if current_user.is_authenticated %}
-        <i> Select the desired action in menu</i>
+        <i>Select the desired action in menu</i>
 
     {% else %}
         <i>To buy or sell, register or log in<i>
 
     {% endif %}
+
+  </div>
 
 
 {% endblock %}

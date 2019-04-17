@@ -9,10 +9,29 @@
 
 {% block content %}
 
-    <div class="alert alert-success" role="alert">
+  <div class="col-md-2">
 
-        {{ message }}
+    {% if message_404 %}
 
-    </div>
+        <div class="alert alert-danger" role="alert">
+
+            {{ message_404 }}
+
+        </div>
+
+    {% endif %}
+
+
+    {% if message_blocked %}
+
+      <div class="alert alert-success" role="alert">
+
+          {{ message_blocked }}
+
+      </div>
+
+    {% endif %}
+
+  </div>
 
 {% endblock %}

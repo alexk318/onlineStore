@@ -3,7 +3,7 @@
 # View - Data mapping to user
 # Controller - Binds user and database, app
 
-from flask import render_template, session  # 'render_template' displays HTML to the page
+from flask import render_template, session
 from flask import request, redirect, url_for
 from flask_security import login_required, current_user
 from formsFile import RegisterForms, ProductsAddingForms
@@ -23,10 +23,10 @@ def make_dir_image(fileimage, foldername):
     img_title = fileimage.filename
     dirstr = "static/" + foldername
     os.mkdir(dirstr)  # Creating a folder
-    write_file(fileimage.read(), dirstr + "/" + img_title)  # Write a photo to its associated folder
+    write_file(fileimage.read(), dirstr + "/" + img_title)
 
 
-@app.route('/')  # The user can appeal the web application on the path '/'  {'/' : 'welcome_page'}
+@app.route('/')
 def welcome_page():  # Define the 'View'
     # The use of tags is adequately perceived, but better to use HTML templates
 
@@ -45,8 +45,8 @@ def define_statistics(username):
         database_cursor.execute("UPDATE `User` SET `active` = '0' WHERE (`name` = %s)", (specific_user.name, ))
         connection_link.commit()
 
-        message = 'User "' + specific_user.name + '" successfully blocked'
-        return render_template('message.html', message=message)
+        message_blocked = 'User "' + specific_user.name + '" successfully blocked'
+        return render_template('message.html', message_blocked=message_blocked)
 
     return render_template('statistics_page.html', specific_user=specific_user, all_users=all_users)
 
@@ -56,14 +56,12 @@ def registration_page():
 
     # Web server accepts data
     if request.method == 'POST':
-        # We request forms from the RegisterForm class by writing them into separate variables.
         nameuser = request.form['nameform']
         surnameuser = request.form['surnameform']
         emailuser = request.form['emailform']
         passworduser = request.form['passwordform']
         print(passworduser)
 
-        # Create a user, equating the arguments of the class User to the values entered by the user.
         new_user = user_datastore.create_user(name=nameuser, surname=surnameuser, email=emailuser,
                                               password=passworduser)
 
@@ -76,7 +74,7 @@ def registration_page():
     # regforms stores all RegisterForm class arguments
     regforms = RegisterForms()
 
-    return render_template('registration.html', regforms=regforms)  # We make a request [GET] to the address
+    return render_template('registration.html', regforms=regforms)
 
 
 @app.route('/sell', methods=['POST', 'GET'])
@@ -124,7 +122,7 @@ def add_page():
 
             else:
                 img_title = customimg.filename
-                if not img_title.lower().endswith(('.png', '.jpg', '.jpeg')):
+                if not img_title.lower().endswith(('.png', '.jpg', '.jpeg', '.jpe')):
                     error = 'Valid extensions for photos: ".png, .jpg, .jpeg, .jpe"'
                     return render_template('products_add.html', adding_products_forms=adding_products_forms,error=error)
 
@@ -199,3 +197,8 @@ def do_buy():
 
     return render_template('welcome.html')
 
+
+@app.errorhandler(404)
+def handler_404(err):
+    message_404 = 'You have moved to a non-existent page'
+    return render_template('message.html', message_404=message_404), 404

@@ -8,13 +8,17 @@
 
 {% block content_headline %}
 
-    {% if products: %}
-        Your shopping cart:
+    <div class=col-md-6>
 
-    {% else %}
-        Your shopping cart is empty
+      {% if products: %}
+          Your shopping cart:
 
-    {% endif %}
+      {% else %}
+          Your shopping cart is empty
+
+      {% endif %}
+
+    </div>
 
 
 {% endblock %}
@@ -127,4 +131,3 @@
         </style>
 
 {% endblock %}
-
