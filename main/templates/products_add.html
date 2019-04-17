@@ -30,15 +30,18 @@
 
         {% endif %}
 
+
         <form action="{{ url_for('add_page') }}" method="POST" enctype="multipart/form-data">
 
             {% for form in adding_products_forms %}
-            
-                <div class="form-group">
 
-                        {{ form.label(class='control-label') }}
-                        {{ form(class='form-control') }}
+                <div class=col-md-6>
+                  <div class="form-group">
 
+                          {{ form.label(class='control-label') }}
+                          {{ form(class='form-control') }}
+
+                  </div>
                 </div>
 
             {% endfor %}
@@ -52,7 +55,7 @@
 
 
         </form>
-        
+
     </div>
 
 {% endblock %}
