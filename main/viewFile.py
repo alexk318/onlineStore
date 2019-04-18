@@ -72,7 +72,7 @@ def add_page():
 
         if not img_title.lower().endswith(('.png', '.jpg', '.jpeg', '.jpe')):
             error = 'Valid extensions for photos: ".png, .jpg, .jpeg, .jpe"'
-            return render_template('products_add.html', adding_products_forms=adding_products_forms,error=error)
+            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
         else:
                 import builtins
                 try:
@@ -119,7 +119,7 @@ def remove_from_cart():
         database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (user_id, product_id))
         connection_link.commit()
 
-        return render_template('welcome.html')
+        return redirect(url_for('welcome.html'))
 
 
 @app.route('/buyCart', methods=['GET'])
@@ -141,7 +141,7 @@ def do_buy():
         database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
         connection_link.commit()
 
-    return render_template('welcome.html')
+    return redirect(url_for('welcome.html'))
 
 
 @app.errorhandler(404)

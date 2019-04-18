@@ -10,28 +10,31 @@
 
 {% block content_headline %}
 
-    <img src="../static/{{ specific_product.headline + '/' + specific_product.img_title }}">
+      <img src="../static/{{ specific_product.headline + '/' + specific_product.img_title }}">
 
-    {{ specific_product.headline }}
+      {{ specific_product.headline }}
 
 {% endblock %}
 
 
 {% block content %}
 
-    <p> {{ specific_product.text }} </p>
+    <div class=col-md-6>
 
-    Author: {{ specific_product.author }}
-    <br>  Post creation date: {{ specific_product.date_creation }}
+      <p> {{ specific_product.text }} </p>
 
-    <br><br>
+      Author: {{ specific_product.author }}
+      <br>  Post creation date: {{ specific_product.date_creation }}
 
-    {% if current_user.name != specific_product.author %}
-        <form action="{{ url_for( 'buypage.add_to_cart', slug=specific_product.slug ) }}" method="GET">
-            <button type="submit" class="btn btn-success">Add to cart</button>
-        </form>
-    {% endif %}
+      <br><br>
 
+      {% if current_user.name != specific_product.author %}
+          <form action="{{ url_for( 'buypage.add_to_cart', slug=specific_product.slug ) }}" method="GET">
+              <button type="submit" class="btn btn-success">Add to cart</button>
+          </form>
+      {% endif %}
+
+    </div>
 
     <style>
 

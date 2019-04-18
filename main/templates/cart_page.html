@@ -53,10 +53,9 @@
 
                              <p class="product-desc">{{ everyproduct[3] }}</p>
 
+                              <a methods="GET" href="{{ url_for('remove_from_cart') }}?product_id={{everyproduct[0]}}">Remove</a>
+
                              <p class="product-price">Price: ${{ everyproduct[4] }}</p>
-
-                             <a methods="GET" href="{{ url_for('remove_from_cart') }}?product_id={{everyproduct[0]}}">Remove</a>
-
 
                          </div>
 
@@ -71,13 +70,17 @@
 
         {% if products %}
 
-            <form action="{{ url_for( 'do_buy' ) }}" method="GET">
+        <div class=col-md-6>
 
-                <button type="submit" class="btn btn-success">Buy</button>
+              <form action="{{ url_for( 'do_buy' ) }}" method="GET">
 
-            </form>
+                  <button type="submit" class="btn btn-success">Buy</button>
 
-        {% endif %}
+              </form>
+
+          {% endif %}
+
+        </div>
 
         <style>
 
