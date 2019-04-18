@@ -11,15 +11,17 @@
 
   <div class="col-md-2">
 
-    {% if message_404 %}
+      {% if message_alert %}
+      <div class="alert alert-danger" role="alert">
+                                {{ message_alert }}
+      </div>
+      {% endif %}
 
-        <div class="alert alert-danger" role="alert">
-
-            {{ message_404 }}
-
-        </div>
-
-    {% endif %}
+      {% if message_success %}
+      <div class="alert alert-success" role="alert">
+                                {{ message_success }}
+      </div>
+      {% endif %}
 
   </div>
 

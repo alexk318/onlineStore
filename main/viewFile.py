@@ -1,17 +1,10 @@
-# Flask and Django use pattern MVC:
-# Model - Model Description (db)
-# View - Data mapping to user
-# Controller - Binds user and database, app
-
-from flask import render_template, session
-from flask import request, redirect, url_for
+from flask import render_template, session, request, redirect, url_for
 from flask_security import login_required, current_user
 from formsFile import RegisterForms, ProductsAddingForms
 from webAppFile import app, db, user_datastore
 from modelsFile import Product, User
 from configurationFile import database_cursor, connection_link
 import os
-
 
 def write_file(data, filename):
     """Writing binary data to file"""
@@ -102,24 +95,32 @@ def cart_page():
                             "product.slug FROM product, Cart WHERE product.id = Cart.product_id AND Cart.user_id = %s",
                             (current_user.id,))
 
-    products = database_cursor.fetchall()
+    cart_products = database_cursor.fetchall()
 
-    return render_template('cart_page.html', products=products)
+    return render_template('cart_page.html', cart_products=cart_products)
 
 
 @app.route('/removeFromCart', methods=['GET'])
 @login_required
 def remove_from_cart():
-
     if request.method == 'GET':
 
         product_id = int(request.args.get('product_id'))
-        user_id = current_user.id
-
-        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (user_id, product_id))
+        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (current_user.id, product_id))
         connection_link.commit()
 
-        return redirect(url_for('welcome.html'))
+        message_success = 'Product successfully removed from the cart'
+        return render_template('message.html', message_success=message_success)
+
+@app.route('/removeFromCartAll', methods=['GET'])
+@login_required
+def remove_from_cart_all():
+    if request.method == 'GET':
+        database_cursor.execute('DELETE FROM Cart WHERE cart.user_id = %s', (current_user.id, ))
+        connection_link.commit()
+
+        message_success = 'All products have been successfully removed from the cart'
+        return render_template('message.html', message_success=message_success)
 
 
 @app.route('/buyCart', methods=['GET'])
@@ -146,5 +147,5 @@ def do_buy():
 
 @app.errorhandler(404)
 def handler_404(err):
-    message_404 = 'You have moved to a non-existent page'
-    return render_template('message.html', message_404=message_404), 404
+    message_alert = 'You have moved to a non-existent page'
+    return render_template('404.html', message_alert=message_alert), 404

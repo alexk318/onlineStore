@@ -10,7 +10,7 @@
 
     <div class=col-md-6>
 
-      {% if products: %}
+      {% if cart_products: %}
           Your shopping cart:
 
       {% else %}
@@ -31,7 +31,7 @@
 
              <div class="row">
 
-                {% for everyproduct in products %}
+                {% for everyproduct in cart_products %}
 
                      <div class="col-sm-3">
 
@@ -68,7 +68,7 @@
          </div>
 
 
-        {% if products %}
+        {% if cart_products %}
 
         <div class=col-md-6>
 
@@ -76,6 +76,10 @@
 
                   <button type="submit" class="btn btn-success">Buy</button>
 
+              </form>
+              <br />
+              <form action="{{ url_for('remove_from_cart_all') }}" method="GET">
+                <button type="submit" class="btn btn-warning">Remove all</button>
               </form>
 
           {% endif %}
