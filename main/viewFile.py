@@ -128,6 +128,10 @@ def remove_from_cart():
     if request.method == 'GET':
 
         product_id = int(request.args.get('product_id'))
+
+        database_cursor.execute('UPDATE product SET product.visible = True Where product.id = %s', (product_id, ))
+        connection_link.commit()
+
         database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (current_user.id, product_id))
         connection_link.commit()
 
@@ -138,7 +142,10 @@ def remove_from_cart():
 @app.route('/removeFromCartAll', methods=['GET'])
 @login_required
 def remove_from_cart_all():
-    if request.methods == 'GET':
+    if request.method == 'GET':
+
+        database_cursor.execute('UPDATE product SET product.visible = True Where cart.user_id = current_user.id')
+
         database_cursor.execute('DELETE FROM Cart WHERE cart.user_id = %s', (current_user.id, ))
         connection_link.commit()
 
