@@ -14,15 +14,15 @@
 
 {% block content %}
 
-    
+
          <div class="col-md-10 products">
 
              <div class="row">
-           
+
                 {% for everyproduct in products_list %}
 
-                    {% if everyproduct.slug %}
-                
+                    {% if everyproduct.visible %}
+
                          <div class="col-sm-3">
 
                              <div class="product">
@@ -50,15 +50,15 @@
                          </div>
 
                     {% endif %}
-                         
+
                  {% endfor %}
-                       
+
              </div>
 
          </div>
-       
+
         <style>
-            
+
         img {
          max-width: 100%;
          width: 750px;
@@ -70,7 +70,7 @@
          margin-top: 50px;
         }
         .product {
-                
+
          background: #fff none repeat scroll 0 0;
          border: 2px solid #c0c0c0;
          height: 410px;

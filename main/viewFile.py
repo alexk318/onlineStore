@@ -100,29 +100,6 @@ def cart_page():
     return render_template('cart_page.html', cart_products=cart_products)
 
 
-@app.route('/removeFromCart', methods=['GET'])
-@login_required
-def remove_from_cart():
-    if request.method == 'GET':
-
-        product_id = int(request.args.get('product_id'))
-        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (current_user.id, product_id))
-        connection_link.commit()
-
-        message_success = 'Product successfully removed from the cart'
-        return render_template('message.html', message_success=message_success)
-
-@app.route('/removeFromCartAll', methods=['GET'])
-@login_required
-def remove_from_cart_all():
-    if request.method == 'GET':
-        database_cursor.execute('DELETE FROM Cart WHERE cart.user_id = %s', (current_user.id, ))
-        connection_link.commit()
-
-        message_success = 'All products have been successfully removed from the cart'
-        return render_template('message.html', message_success=message_success)
-
-
 @app.route('/buyCart', methods=['GET'])
 @login_required
 def do_buy():
@@ -142,10 +119,34 @@ def do_buy():
         database_cursor.execute("DELETE FROM Cart WHERE user_id = %s", (current_user.id, ))
         connection_link.commit()
 
-    return redirect(url_for('welcome.html'))
+    return redirect(url_for('welcome_page'))
+
+
+@app.route('/removeFromCart', methods=['GET'])
+@login_required
+def remove_from_cart():
+    if request.method == 'GET':
+
+        product_id = int(request.args.get('product_id'))
+        database_cursor.execute('DELETE FROM Cart WHERE user_id = %s AND product_id = %s', (current_user.id, product_id))
+        connection_link.commit()
+
+        message_success = 'Product successfully removed from the cart'
+        return render_template('message.html', message_success=message_success)
+
+
+@app.route('/removeFromCartAll', methods=['GET'])
+@login_required
+def remove_from_cart_all():
+    if request.methods == 'GET':
+        database_cursor.execute('DELETE FROM Cart WHERE cart.user_id = %s', (current_user.id, ))
+        connection_link.commit()
+
+        message_success = 'All products have been successfully removed from the cart'
+        return render_template('message.html', message_success=message_success)
 
 
 @app.errorhandler(404)
 def handler_404(err):
     message_alert = 'You have moved to a non-existent page'
-    return render_template('404.html', message_alert=message_alert), 404
+    return render_template('message.html', message_alert=message_alert), 404

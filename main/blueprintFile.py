@@ -41,13 +41,11 @@ def add_to_cart(slug):
 
         specific_product = Product.query.filter(Product.slug == slug).first()
 
-        product_id = specific_product.id
-
-        user_id = current_user.id
-
-        database_cursor.execute("INSERT INTO Cart (user_id, product_id) VALUES (%s, %s)", (user_id, product_id))
+        database_cursor.execute("INSERT INTO Cart (user_id, product_id) VALUES (%s, %s)", (current_user.id, specific_product.id))
         connection_link.commit()
 
+        database_cursor.execute("UPDATE product SET product.visible = False WHERE product.id = %s", (specific_product.id, ))
+        connection_link.commit()
+
+
         return render_template('welcome.html', specific_product=specific_product)
-
-

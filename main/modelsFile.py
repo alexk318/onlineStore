@@ -59,6 +59,7 @@ class Product(db.Model):
     cost = db.Column(db.String(5))
     slug = db.Column(db.String(255), unique=True)  # Human-readable URL
     date_creation = db.Column(db.String(10), default=datetime.today().strftime("%d.%m.%Y"))
+    visible = db.Column(db.Boolean(), default=True)
 
     def slug_generate(self):
         if self.headline:
@@ -70,6 +71,3 @@ class Product(db.Model):
 
     def __repr__(self):
         return '<Product id: {}, headline: {}>'.format(self.id, self.headline)
-
-
-
