@@ -11,7 +11,7 @@ class RegisterForms(Form):
 class ProductsAddingForms(Form):
     # We can use HTML markup
     headlineform = StringField('Headline:',render_kw={'maxlength': 35,
-                                                      'placeholder': 'The headline must not exceed 35 characters. ',
+                                                      'placeholder': 'The headline must not exceed 35 characters',
                                                       'required': True})
 
     descriptionform = StringField('Description:',
