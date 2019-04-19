@@ -4,8 +4,16 @@ from webAppFile import db  # SQLAlchemy class instance
 from flask_security import UserMixin, RoleMixin
 
 from datetime import datetime
-
 from re import sub  # The function is responsible for changing the bad characters to some one
+
+
+def slugify(string):
+    # The template accepts all characters except those that are not allowed for URLs
+    # [pythex.org]
+    pattern = r'[^\w+]'
+
+    # Return a string by pattern, replacing unwanted characters on the dash
+    return sub(pattern, '-', str(string))
 
 role_user_link = db.Table('role_user',
                           db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
@@ -38,15 +46,6 @@ class Role(db.Model, RoleMixin):
 
     def __repr__(self):
         return '<Role ID: {}, Title: {}>'.format(self.id, self.name)
-
-
-def slugify(string):
-    # The template accepts all characters except those that are not allowed for URLs
-    # [pythex.org]
-    pattern = r'[^\w+]'
-
-    # Return a string by pattern, replacing unwanted characters on the dash
-    return sub(pattern, '-', str(string))
 
 
 class Product(db.Model):
