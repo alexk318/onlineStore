@@ -139,20 +139,6 @@ def remove_from_cart():
         return render_template('message.html', message_success=message_success)
 
 
-@app.route('/removeFromCartAll', methods=['GET'])
-@login_required
-def remove_from_cart_all():
-    if request.method == 'GET':
-
-        database_cursor.execute('UPDATE product SET product.visible = True Where cart.user_id = current_user.id')
-
-        database_cursor.execute('DELETE FROM Cart WHERE cart.user_id = %s', (current_user.id, ))
-        connection_link.commit()
-
-        message_success = 'All products have been successfully removed from the cart'
-        return render_template('message.html', message_success=message_success)
-
-
 @app.errorhandler(404)
 def handler_404(err):
     message_alert = 'You have moved to a non-existent page'
