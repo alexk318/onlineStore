@@ -7,19 +7,28 @@
 
 {% endblock %}
 
+{% block content %}
 
-{% block content_headline %}
+      <br />
 
-    <div class=col-md-6>
+      <div class="container col-md-7">
 
-      {% if not current_user.is_authenticated %}
-        Welcome to the online auto parts store!
+        <div class="jumbotron text-center">
+          <h1 class="display-3">{% if not current_user.is_authenticated %}
+            Welcome to the online store
 
-      {% else %}
-        Hello, {{ current_user.name }}!
+          {% else %}
+            Hello, {{ current_user.name }}!
 
-      {% endif %}
+          {% endif %}</h1>
+          <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <hr class="my-4">
+          <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+          <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+          </p>
+        </div>
 
-    </div>
+      </div>
 
 {% endblock %}
