@@ -1,11 +1,13 @@
 from flask import Blueprint, render_template, request
 
-from configurationFile import database_cursor, connection_link
-
 # A decorator that allows only authorized users to log in to a specific View
 from flask_security import login_required, current_user
 
+from webAppFile import db
 from modelsFile import Product, User
+from formsFile import regforms
+from configurationFile import database_cursor, connection_link
+from formsFile import productforms
 
 # Shopping has a branch of addresses in it, so Blueprint is used here
 # Blueprint name, __name__, Folder with HTML
@@ -36,7 +38,6 @@ def product_link(slug):
 @blueprint_instance.route('/<slug>/addToCart', methods=['GET'])
 @login_required
 def add_to_cart(slug):
-
     if request.method == 'GET':
 
         specific_product = Product.query.filter(Product.slug == slug).first()
@@ -49,3 +50,20 @@ def add_to_cart(slug):
 
 
         return render_template('welcome.html', specific_product=specific_product)
+
+#@blueprint_instance.route('/<slug>/edit', methods=['GET', 'POST'])
+#@login_required
+#def handler_edit(slug):
+#    specific_product = Product.query.filter(Product.slug == slug).first()
+#
+#    if request.method == 'POST':
+#        filled_forms = ProductsAddingForms(formdata=request.form, obj=specific_product)
+#        filled_forms.populate_obj(specific_product)
+#
+#        if not img_title.lower().endswith(('.png', '.jpg', '.jpeg', '.jpe')):
+#            error = 'Valid extensions for photos: ".png, .jpg, .jpeg, .jpe"'
+#        else:
+#            db.session.commit()
+#            return redirect(url_for('buypage.product_link', slug=specific_product.slug))
+
+#    return render_template('products_edit.html', productforms=productforms)

@@ -1,6 +1,6 @@
 from flask import render_template, session, request, redirect, url_for
 from flask_security import login_required, current_user
-from formsFile import RegisterForms, ProductsAddingForms
+from formsFile import regforms, productforms
 from webAppFile import app, db, user_datastore
 from modelsFile import Product, User
 from configurationFile import database_cursor, connection_link
@@ -13,7 +13,7 @@ def write_file(data, filename):
 
 def make_dir_image(fileimage, foldername):
     img_title = fileimage.filename
-    dirstr = "main/static/" + foldername
+    dirstr = "main/static/imgs" + foldername
     os.makedirs(dirstr)  # Creating a folder
     write_file(fileimage.read(), dirstr + "/" + img_title)
 
@@ -42,16 +42,12 @@ def registration_page():
 
         return redirect(url_for('welcome_page'))
 
-    # regforms stores all RegisterForm class arguments
-    regforms = RegisterForms()
-
     return render_template('registration.html', regforms=regforms)
 
 
 @app.route('/sell', methods=['POST', 'GET'])
 @login_required
 def add_page():
-    adding_products_forms = ProductsAddingForms()
     if request.method == 'POST':
         customheadline = request.form['headlineform']
         customdescription = request.form['descriptionform']
@@ -85,7 +81,7 @@ def add_page():
 
                 return redirect(url_for('welcome_page'))
 
-    return render_template('products_add.html', adding_products_forms=adding_products_forms)
+    return render_template('products_add.html', productforms=productforms)
 
 
 @app.route('/cart')

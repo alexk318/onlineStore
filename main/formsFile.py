@@ -8,7 +8,7 @@ class RegisterForms(Form):
     passwordform = PasswordField('Password:')
 
 
-class ProductsAddingForms(Form):
+class ProductForms(Form):
     # We can use HTML markup
     headlineform = StringField('Headline:',render_kw={'maxlength': 35,
                                                       'placeholder': 'The headline must not exceed 35 characters',
@@ -20,3 +20,7 @@ class ProductsAddingForms(Form):
     textform = TextAreaField('Text:', render_kw={'required': True})
     costform = StringField('Cost:', render_kw={'maxlength': 5, 'placeholder': 'Maximum number of digits - 5',
                                                'required': True})
+
+    # regforms stores all RegisterForm class arguments
+regforms = RegisterForms()
+productforms = ProductForms()

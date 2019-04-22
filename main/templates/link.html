@@ -32,6 +32,14 @@
           <form action="{{ url_for( 'buypage.add_to_cart', slug=specific_product.slug ) }}" method="GET">
               <button type="submit" class="btn btn-success">Add to cart</button>
           </form>
+
+          {% else %}
+          <form action="{{ url_for('buypage.handler_edit') }}"
+            <button type="submit" class="btn btn-warning">Edit</button>
+          </form>
+
+          <button type="submit" class="btn btn-danger">Delete</button>
+
       {% endif %}
 
     </div>
