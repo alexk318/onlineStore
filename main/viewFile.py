@@ -13,7 +13,7 @@ def write_file(data, filename):
 
 def make_dir_image(fileimage, foldername):
     img_title = fileimage.filename
-    dirstr = "main/static/imgs" + foldername
+    dirstr = "main/static/imgs/" + foldername
     os.makedirs(dirstr)  # Creating a folder
     write_file(fileimage.read(), dirstr + "/" + img_title)
 
@@ -61,7 +61,7 @@ def add_page():
 
         if not img_title.lower().endswith(('.png', '.jpg', '.jpeg', '.jpe')):
             error = 'Valid extensions for photos: ".png, .jpg, .jpeg, .jpe"'
-            return render_template('products_add.html', adding_products_forms=adding_products_forms, error=error)
+            return render_template('products_add.html', productforms=productforms)
         else:
                 import builtins
                 try:
@@ -70,7 +70,7 @@ def add_page():
                 # saying that the static/ already exists when the product header is empty
                 except builtins.FileExistsError:
                     error = 'This headline already exists, or you did not enter a headline'
-                    return render_template('products_add.html', adding_products_forms=adding_products_forms,
+                    return render_template('products_add.html', productforms=productforms,
                                                error=error)
 
                 new_product = Product(headline=customheadline, text=customtext, description=customdescription,

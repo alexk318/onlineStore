@@ -12,19 +12,21 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
           crossorigin="anonymous">
 
-    <link rel="stylesheet" href={{ url_for('static', filename='css/bootstrapStyle.css') }}
+    <link rel="stylesheet" href={{ url_for('static', filename='css/style.css') }}
 
     <meta charset="UTF-8">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ url_for('welcome_page') }}">Online Store</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
+      
+      <div class="mx-auto order-0">
+          <a class="navbar-brand" href="{{ url_for('welcome_page') }}">Online Store</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+                  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                  aria-expanded="false" aria-label="Toggle navigation">
 
-                    <span class="navbar-toggler-icon"></span>
+                      <span class="navbar-toggler-icon"></span>
 
-        </button>
+          </button>
+        </div>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -134,10 +136,34 @@
         {% endblock %}
     </p>
 
-<body>
+     <footer>
+       <div class="container-fluid bg-primary py-3">
+         <div class="container">
+            <div class="col-sm-11 text-white">
+              <div>
+                <h4>Online store</h4>
+                <p>Author: Alexander Karpenko</p>
 
+                <div class="bg-circle-outline d-inline-block">
+              <a href="https://www.facebook.com/"><i class="fa fa-2x fa-fw fa-facebook text-white"></i>
+	          	</a>
+            </div>
 
+              </div>
+            </div>
+          </div>
+        </div>
+     </footer>
 
-</body>
+     <style>
+
+     footer {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        left: 0;
+        bottom: 0;
+    }
+     </style>
 
 </html>

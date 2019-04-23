@@ -33,33 +33,19 @@
 
                 {% for everyproduct in cart_products %}
 
-                     <div class="col-sm-3">
+                <div class="col-sm-3">
 
-                         <div class="product">
+                  <div class="card" style="width: 18rem;">
+                    <img src="../static/imgs/{{ everyproduct[2] + '/' + everyproduct[1] }}" class="card-img-top">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ everyproduct[2] }}</h5>
+                    <p class="card-text">{{ everyproduct[3] }}</p>
+                    <a href="{{ url_for('remove_from_cart') }}?product_id={{everyproduct[0]}}" class="btn btn-danger">Remove</a>
+                    <a>${{ everyproduct[4] }}</a>
+                  </div>
+                  </div>
 
-                             <div class="product-img">
-
-                                 <img src="../static/{{ everyproduct[2] + '/' + everyproduct[1] }}">
-
-                             </div>
-
-                             <br>
-
-                             <p class="product-title">
-
-                                 <a href="{{ url_for('buypage.product_link', slug=everyproduct[5]) }}">{{ everyproduct[2] }}</a>
-
-                             </p>
-
-                             <p class="product-desc">{{ everyproduct[3] }}</p>
-
-                              <a methods="GET" href="{{ url_for('remove_from_cart') }}?product_id={{everyproduct[0]}}">Remove</a>
-
-                             <p class="product-price">Price: ${{ everyproduct[4] }}</p>
-
-                         </div>
-
-                     </div>
+                </div>
 
                  {% endfor %}
 
@@ -67,17 +53,18 @@
 
          </div>
 
+        <br />
 
         {% if cart_products %}
 
         <div class=col-md-6>
 
-              <form action="{{ url_for( 'do_buy' ) }}" method="GET">
+              <form action="{{ url_for('do_buy') }}" method="GET">
 
                   <button type="submit" class="btn btn-success">Buy</button>
 
               </form>
-              
+
           {% endif %}
 
         </div>

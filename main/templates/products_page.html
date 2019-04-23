@@ -23,31 +23,19 @@
 
                     {% if everyproduct.visible %}
 
-                         <div class="col-sm-3">
+                      <div class="col-sm-3">
 
-                             <div class="product">
+                        <div class="card" style="width: 18rem;">
+                          <img src="../static/imgs/{{ everyproduct.headline + '/' + everyproduct.img_title }}" class="card-img-top">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ everyproduct.headline }}</h5>
+                          <p class="card-text">{{ everyproduct.description }}</p>
+                          <a href="{{ url_for('buypage.product_link', slug=everyproduct.slug) }}" class="btn btn-primary">More >></a>
+                          <a>${{ everyproduct.cost }}</a>
+                        </div>
+                        </div>
 
-                                 <div class="product-img">
-
-                                     <img src="../static/{{ everyproduct.headline + '/' + everyproduct.img_title }}">
-
-                                 </div>
-
-                                 <br>
-
-                                 <p class="product-title">
-
-                                     <a href="{{ url_for('buypage.product_link', slug=everyproduct.slug) }}">{{ everyproduct.headline }}</a>
-
-                                 </p>
-
-                                 <p class="product-desc">{{ everyproduct.description }}</p>
-
-                                 <p class="product-price">Price: ${{ everyproduct.cost }}</p>
-
-                             </div>
-
-                         </div>
+                      </div>
 
                     {% endif %}
 
